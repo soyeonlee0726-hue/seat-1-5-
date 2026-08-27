@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자리 뽑기 프로그램</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1b1b1b;
+    font-family: 'Jua', sans-serif;
+  }
+
+  .board {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    aspect-ratio: 1920 / 1080;
+    background-image: url("background.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    margin: 20px;
+  }
+
+  .seat-number {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    color: #545454;
+    font-family: 'Jua', sans-serif;
+    font-size: clamp(14px, 2.4vw, 30px);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .action-btn {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #545454;
+    font-family: 'Jua', sans-serif;
+    font-size: clamp(16px, 2.6vw, 32px);
+    user-select: none;
+    padding: 0;
+  }
+  .action-btn:hover { opacity: 0.7; }
+  .action-btn:active { opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<div class="board" id="board">
+  <button class="action-btn"
+          id="drawBtn"
+          style="left:26.771%; top:9.676%; width:18.516%; height:16.065%;">
+    🎲 자리뽑기
+  </button>
+
+  <button class="action-btn"
+          id="resetBtn"
+          style="left:54.792%; top:9.676%; width:18.516%; height:16.065%;">
+    🔄 초기화
+  </button>
+</div>
+
+<script>
+  const TOTAL_SEATS = 30;
+
+  const SEAT_POSITIONS = [
+    { left: 8.346, top: 36.736 }, { left: 19.674, top: 36.736 },
+    { left: 32.383, top: 36.736 }, { left: 43.711, top: 36.736 },
+    { left: 56.419, top: 36.736 }, { left: 67.747, top: 36.736 },
+    { left: 80.443, top: 36.736 }, { left: 91.771, top: 36.736 },
+
+    { left: 8.333, top: 49.560 }, { left: 19.661, top: 49.560 },
+    { left: 32.370, top: 49.560 }, { left: 43.698, top: 49.560 },
+    { left: 56.406, top: 49.560 }, { left: 67.734, top: 49.560 },
+    { left: 80.443, top: 49.560 }, { left: 91.758, top: 49.560 },
+
+    { left: 8.346, top: 62.384 }, { left: 19.661, top: 62.384 },
+    { left: 32.383, top: 62.384 }, { left: 43.698, top: 62.384 },
+    { left: 56.419, top: 62.384 }, { left: 67.747, top: 62.384 },
+    { left: 80.443, top: 62.384 }, { left: 91.771, top: 62.384 },
+
+    { left: 8.333, top: 75.208 }, { left: 19.661, top: 75.208 },
+    { left: 32.370, top: 75.208 }, { left: 43.698, top: 75.208 },
+    { left: 56.406, top: 75.208 }, { left: 67.734, top: 75.208 },
+  ];
+
+  const board = document.getElementById('board');
+  const drawBtn = document.getElementById('drawBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  const seatEls = SEAT_POSITIONS.map(pos => {
+    const el = document.createElement('div');
+    el.className = 'seat-number';
+    el.style.left = pos.left + '%';
+    el.style.top = pos.top + '%';
+    board.appendChild(el);
+    return el;
+  });
+
+  function drawSeats() {
+    const numbers = Array.from({ length: TOTAL_SEATS }, (_, i) => i + 1);
+    for (let i = numbers.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+    }
+    seatEls.forEach((el, i) => { el.textContent = numbers[i]; });
+    drawBtn.textContent = '🔄 다시뽑기';
+  }
+
+  function resetSeats() {
+    seatEls.forEach(el => { el.textContent = ''; });
+    drawBtn.textContent = '🎲 자리뽑기';
+  }
+
+  drawBtn.addEventListener('click', drawSeats);
+  resetBtn.addEventListener('click', resetSeats);
+</script>
+
+</body>
+</html>
