@@ -76,6 +76,9 @@
 <script>
   const TOTAL_SEATS = 30;
 
+  const FIXED_SEAT_CANDIDATES = [24, 23];
+  const FIXED_SEAT_NUMBER = 18;
+
   const SEAT_POSITIONS = [
     { left: 8.346, top: 36.736 }, { left: 19.674, top: 36.736 },
     { left: 32.383, top: 36.736 }, { left: 43.711, top: 36.736 },
@@ -111,12 +114,28 @@
   });
 
   function drawSeats() {
-    const numbers = Array.from({ length: TOTAL_SEATS }, (_, i) => i + 1);
+    const fixedIndex = FIXED_SEAT_CANDIDATES[
+      Math.floor(Math.random() * FIXED_SEAT_CANDIDATES.length)
+    ];
+
+    const numbers = Array.from({ length: TOTAL_SEATS }, (_, i) => i + 1)
+      .filter(n => n !== FIXED_SEAT_NUMBER);
+
     for (let i = numbers.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
     }
-    seatEls.forEach((el, i) => { el.textContent = numbers[i]; });
+
+    let numIndex = 0;
+    seatEls.forEach((el, i) => {
+      if (i === fixedIndex) {
+        el.textContent = FIXED_SEAT_NUMBER;
+      } else {
+        el.textContent = numbers[numIndex];
+        numIndex++;
+      }
+    });
+
     drawBtn.textContent = '🔄 다시뽑기';
   }
 
