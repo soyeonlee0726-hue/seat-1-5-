@@ -22,7 +22,7 @@
     position: relative;
     width: 100%;
     max-width: 1200px;
-    aspect-ratio: 1920 / 1080;
+    aspect-ratio: 3840 / 2160;
     background-image: url("background.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -62,13 +62,13 @@
 <div class="board" id="board">
   <button class="action-btn"
           id="drawBtn"
-          style="left:26.771%; top:9.676%; width:18.516%; height:16.065%;">
+          style="left:26.953%; top:4.352%; width:18.255%; height:15.694%;">
     🎲 자리뽑기
   </button>
 
   <button class="action-btn"
           id="resetBtn"
-          style="left:54.792%; top:9.676%; width:18.516%; height:16.065%;">
+          style="left:54.974%; top:4.352%; width:18.255%; height:15.694%;">
     🔄 초기화
   </button>
 </div>
@@ -76,28 +76,15 @@
 <script>
   const TOTAL_SEATS = 30;
 
-  const FIXED_SEAT_CANDIDATES = [24, 23];
+  const FIXED_SEAT_CANDIDATES = [24, 25, 26, 27, 28, 29, 12, 18, 17, 23];
   const FIXED_SEAT_NUMBER = 18;
 
   const SEAT_POSITIONS = [
-    { left: 8.346, top: 36.736 }, { left: 19.674, top: 36.736 },
-    { left: 32.383, top: 36.736 }, { left: 43.711, top: 36.736 },
-    { left: 56.419, top: 36.736 }, { left: 67.747, top: 36.736 },
-    { left: 80.443, top: 36.736 }, { left: 91.771, top: 36.736 },
-
-    { left: 8.333, top: 49.560 }, { left: 19.661, top: 49.560 },
-    { left: 32.370, top: 49.560 }, { left: 43.698, top: 49.560 },
-    { left: 56.406, top: 49.560 }, { left: 67.734, top: 49.560 },
-    { left: 80.443, top: 49.560 }, { left: 91.758, top: 49.560 },
-
-    { left: 8.346, top: 62.384 }, { left: 19.661, top: 62.384 },
-    { left: 32.383, top: 62.384 }, { left: 43.698, top: 62.384 },
-    { left: 56.419, top: 62.384 }, { left: 67.747, top: 62.384 },
-    { left: 80.443, top: 62.384 }, { left: 91.771, top: 62.384 },
-
-    { left: 8.333, top: 75.208 }, { left: 19.661, top: 75.208 },
-    { left: 32.370, top: 75.208 }, { left: 43.698, top: 75.208 },
-    { left: 56.406, top: 75.208 }, { left: 67.734, top: 75.208 },
+    { left: 8.268, top: 28.264 }, { left: 25.117, top: 28.264 }, { left: 41.797, top: 28.264 }, { left: 58.477, top: 28.264 }, { left: 75.169, top: 28.264 }, { left: 91.862, top: 28.264 },
+    { left: 8.268, top: 41.088 }, { left: 25.117, top: 41.088 }, { left: 41.797, top: 41.088 }, { left: 58.477, top: 41.088 }, { left: 75.169, top: 41.088 }, { left: 91.862, top: 41.088 },
+    { left: 8.281, top: 53.912 }, { left: 25.117, top: 53.912 }, { left: 41.797, top: 53.912 }, { left: 58.490, top: 53.912 }, { left: 75.169, top: 53.912 }, { left: 91.862, top: 53.912 },
+    { left: 8.268, top: 66.736 }, { left: 25.117, top: 66.736 }, { left: 41.797, top: 66.736 }, { left: 58.477, top: 66.736 }, { left: 75.169, top: 66.736 }, { left: 91.862, top: 66.736 },
+    { left: 8.346, top: 79.514 }, { left: 25.169, top: 79.514 }, { left: 41.862, top: 79.514 }, { left: 58.555, top: 79.514 }, { left: 75.221, top: 79.514 }, { left: 91.927, top: 79.514 },
   ];
 
   const board = document.getElementById('board');
